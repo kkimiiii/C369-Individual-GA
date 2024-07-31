@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Wardiere Inc.</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Wardiere Inc.</div>
+        <nav>
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Solutions</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Wallet</a></li>
+            </ul>
+        </nav>
+        <button class="auth-button signup" onclick="handleAuthButtonClick()">Sign up</button>
+    </header>
+
+    <div class="carousel">
+        <div class="slides">
+            <div class="slide active">
+                <div class="content">
+                    <h2>About The AI</h2>
+                    <p>
+                        • It is highly accurate in identifying suspicious transactions and connected parties as it combats the increased sophistication in financial crime.<br>
+                        • This has helped them to catch more-than-5,700 average monthly suspicious transactions and deploy the necessary resources swiftly to investigate potential money laundering attempts.
+                    </p>
+                    <button class="cta">Start today</button>
+                </div>
+                <div class="image">
+                    <img src="views/AI-Fraud-Detection.jpg" alt="AI Image"> 
+                </div>
+            </div>
+            <div class="slide">
+                <div class="content">
+                    <h2>About The AI</h2>
+                    <p>
+                        • XYZ Bank is the first Singapore bank to apply AI concurrently to two anti-money laundering (AML) risk dimensions – transaction monitoring and name screening.
+                    </p>
+                    <button class="cta">Start today</button>
+                </div>
+                <div class="image">
+                    <img src="views/xyzbank.png" alt="AI Image"> 
+                </div>
+            </div>
+        </div>
+        <button class="nav prev" onclick="prevSlide()">←</button>
+        <button class="nav next" onclick="nextSlide()">→</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+            showSlide(currentSlideIndex);
+        }
+
+        
+        function handleAuthButtonClick() {
+            const isAuthenticated = localStorage.getItem('authenticated') === 'true';
+            if (isAuthenticated) {
+                localStorage.removeItem('authenticated');
+                window.location.reload();
+            } else {
+                window.location.href = 'signup.html';
+            }
+        }
+
+        
+        window.onload = function() {
+            const isAuthenticated = localStorage.getItem('authenticated') === 'true';
+            const authButton = document.querySelector('.auth-button');
+            if (isAuthenticated) {
+                authButton.textContent = 'Log out';
+                authButton.classList.remove('signup');
+                authButton.classList.add('logout');
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="verify-container">
+        <h2>Verification</h2>
+        <p>A verification code has been sent to your email/phone.</p>
+        <p>Your verification code is: <strong id="verification-code"></strong></p>
+        <form action="home.html" method="POST">
+            <div class="form-group">
+                <label for="verification_code">Enter Verification Code:</label>
+                <input type="text" id="verification_code" name="verification_code" required>
+            </div>
+            <button type="submit" class="verify-btn">Verify</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('verification-code').textContent = Math.floor(10000 + Math.random() * 90000);
+    </script>
+</body>
+</html>
