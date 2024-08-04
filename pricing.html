@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" x2="3" y1="12" y2="12"/>
+            </svg>
+            <span>Wardiere Inc.</span>
+        </div>
+        <nav id="navbar">
+            <a href="/" class="active">Home</a>
+            <a href="/solutions.html">Solutions</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/digitalwallet">Digital Wallet</a>
+            <button class="header-button" id="auth-button">Sign Up</button>
+        </nav>
+    </header>
+
+    <main class="pricing-container">
+        <h2>Service</h2>
+        <div class="service">
+            <p>AML detection system with 50% AI dependant</p>
+            <p>$250</p>
+            <button class="buy-button" onclick="buyService(250)">Buy</button>
+        </div>
+        <div class="service">
+            <p>AML detection system with 100% AI dependant</p>
+            <p>$500</p>
+            <button class="buy-button" onclick="buyService(500)">Buy</button>
+        </div>
+        <div class="service">
+            <p>AML detection system with 100% AI dependant and annually servicing</p>
+            <p>$1000</p>
+            <button class="buy-button" onclick="buyService(1000)">Buy</button>
+        </div>
+        <div class="service">
+            <p>AML detection system with 100% AI dependant and bi-annually servicing</p>
+            <p>$1500</p>
+            <button class="buy-button" onclick="buyService(1500)">Buy</button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p> © 2024 AI-Powered Solutions. All Rights Reserved. </p>
+    </footer>
+
+    <script>
+        function buyService(amount) {
+            fetch('/buy', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ amount })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Thank you for purchasing');
+                    window.location.href = '/confirmation';
+                } else {
+                    alert('Insufficient balance!');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

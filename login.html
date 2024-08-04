@@ -16,35 +16,40 @@
             </svg>
             <span>Wardiere Inc.</span>
         </div>
-        <nav id="navbar">
-            <a href="/" class="active">Home</a>
-            <a href="/solutions">Solutions</a>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/solutions.html">Solutions</a>
             <a href="/pricing">Pricing</a>
-            <a href="/digital-wallet">Digital Wallet</a>
-            <button class="header-button" id="auth-button">Sign Up</button>
+            <a href="/digitalwallet.html">Digital Wallet</a>
+            <button class="header-button" onclick="location.href='/signup'">Sign Up</button>
+            <button class="header-button" onclick="location.href='/login'">Log In</button>
         </nav>
     </header>
-
-    <main class="main">
-        <div class="login-container">
-            <h2>Log In</h2>
-            <form action="/login" method="POST">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit">Log In</button>
-            </form>
-        </div>
+    <main class="login-container">
+        <h2>Log In</h2>
+        <form id="login-form" action="/login" method="post">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit">Log In</button>
+            <div class="login-link">
+                <p>Don't have an account? <a href="/signup">Sign up</a></p>
+            </div>
+        </form>
     </main>
-
-    <footer class="footer">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('loggedIn') === 'true') {
+                alert('Logged in successfully!');
+                window.location.href = '/';
+            }
+        });
+    </script>
 </body>
 </html>

@@ -322,3 +322,129 @@ body {
 .navbar a {
     margin-left: 1rem;
 }
+
+/* Wallet and Payment Page Styles */
+.wallet-container {
+    background-color: #321f6b; /* Background color for the wallet form */
+    border-radius: 0.5rem;
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: adds shadow for better visibility */
+}
+
+.wallet-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.wallet-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.wallet-container .form-group {
+    margin-bottom: 1rem;
+}
+
+.wallet-container .form-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.wallet-container .form-group input,
+.wallet-container .form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    border: 1px solid #444;
+    background-color: #222;
+    color: white;
+}
+
+.wallet-container .form-group input::placeholder {
+    color: #aaa;
+}
+
+.wallet-container button {
+    background-color: #ff5722; /* Button background color */
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+.wallet-container button:hover {
+    background-color: #e64a19; /* Darker shade for hover effect */
+}
+
+/* Pricing Page Styles */
+.pricing-container {
+    background-color: #321f6b; /* Background color for the pricing page */
+    border-radius: 0.5rem;
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: adds shadow for better visibility */
+}
+
+.pricing-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.service {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.service p {
+    margin: 0;
+}
+
+.buy-button {
+    background-color: #4CAF50; /* Green button color */
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.buy-button:hover {
+    background-color: #45a049; /* Darker green for hover effect */
+}
+
+/* Confirmation Page Styles */
+.confirmation-container {
+    background-color: #321f6b; /* Background color for the confirmation page */
+    border-radius: 0.5rem;
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: adds shadow for better visibility */
+}
+
+.confirmation-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-container p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}

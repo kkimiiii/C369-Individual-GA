@@ -8,12 +8,17 @@ const PORT = 3000;
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname)); // Serve static files from the root directory
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname)));
 app.use(session({
     secret: 'your_secret_key',
     resave: false,
     saveUninitialized: true
 }));
+
+// Simulated user database (replace with your database logic)
+const users = {};
+let transactions = [];
 
 // Serve main page
 app.get('/', (req, res) => {
@@ -31,8 +36,21 @@ app.get('/signup', (req, res) => {
 });
 
 // Serve digital wallet page
-app.get('/digital-wallet', (req, res) => {
-    res.sendFile(path.join(__dirname, 'digital-wallet.html'));
+app.get('/digitalwallet', (req, res) => {
+    if (req.session.loggedIn) {
+        res.sendFile(path.join(__dirname, 'digitalwallet.html'));
+    } else {
+        res.redirect('/login');
+    }
+});
+
+// Serve balance for digital wallet
+app.get('/balance', (req, res) => {
+    if (req.session.loggedIn) {
+        res.json({ balance: req.session.user.balance });
+    } else {
+        res.status(401).json({ error: 'Not logged in' });
+    }
 });
 
 // Serve solutions page
@@ -45,15 +63,9 @@ app.get('/pricing', (req, res) => {
     res.sendFile(path.join(__dirname, 'pricing.html'));
 });
 
-// Serve logout page
-app.get('/logout', (req, res) => {
-    req.session.destroy(err => {
-        if (err) {
-            console.error('Error destroying session:', err);
-            return res.redirect('/');
-        }
-        res.sendFile(path.join(__dirname, 'logout.html'));
-    });
+// Serve confirmation page
+app.get('/confirmation', (req, res) => {
+    res.sendFile(path.join(__dirname, 'confirmation.html'));
 });
 
 // Handle login
@@ -63,6 +75,7 @@ app.post('/login', (req, res) => {
     if (users[email] && users[email].password === password) {
         req.session.loggedIn = true;
         req.session.user = users[email];
+        req.session.user.balance = req.session.user.balance || 0; // Initialize balance if not set
         res.redirect('/?loggedIn=true');
     } else {
         res.redirect('/login');
@@ -74,13 +87,62 @@ app.post('/signup', (req, res) => {
     const { firstName, lastName, email, username, password } = req.body;
     // Check if user already exists (replace with actual validation logic)
     if (!users[email]) {
-        users[email] = { firstName, lastName, username, password };
+        users[email] = { firstName, lastName, username, password, balance: 0 };
         req.session.loggedIn = true;
         req.session.user = users[email];
         res.redirect('/?signedUp=true');
     } else {
         res.redirect('/signup');
     }
+});
+
+// Handle digital wallet form submission
+app.post('/digitalwallet', (req, res) => {
+    const { amount, paymentMethod } = req.body;
+    if (req.session.loggedIn) {
+        const user = req.session.user;
+        user.balance += parseFloat(amount);
+        transactions.push({
+            date: new Date().toISOString().split('T')[0],
+            amount: parseFloat(amount),
+            paymentMethod
+        });
+        res.redirect('/digitalwallet');
+    } else {
+        res.redirect('/login');
+    }
+});
+
+// Handle buy request
+app.post('/buy', (req, res) => {
+    const { amount } = req.body;
+    if (req.session.loggedIn) {
+        const user = req.session.user;
+        if (user.balance >= amount) {
+            user.balance -= amount;
+            res.json({ success: true });
+        } else {
+            res.json({ success: false });
+        }
+    } else {
+        res.status(401).json({ success: false, message: 'Not logged in' });
+    }
+});
+
+// Handle logout
+app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            return res.redirect('/');
+        }
+        res.redirect('/logout.html');
+    });
+});
+
+// Serve logout page
+app.get('/logout.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'logout.html'));
 });
 
 // Start the server

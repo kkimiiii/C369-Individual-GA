@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wallet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" x2="3" y1="12" y2="12"/>
+            </svg>
+            <span>Wardiere Inc.</span>
+        </div>
+        <nav id="navbar">
+            <a href="/" class="active">Home</a>
+            <a href="/solutions.html">Solutions</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/digitalwallet">Digital Wallet</a>
+            <button class="header-button" id="auth-button">Sign Up</button>
+        </nav>
+    </header>
+
+    <main class="wallet-container">
+        <h2>Wallet and Payment</h2>
+        <form id="wallet-form" action="/digitalwallet" method="post">
+            <div class="form-group">
+                <label for="card-name">Card name</label>
+                <input type="text" id="card-name" name="cardName" placeholder="Card name" required>
+            </div>
+            <div class="form-group">
+                <label for="card-number">Card number</label>
+                <input type="text" id="card-number" name="cardNumber" placeholder="Card number" required>
+            </div>
+            <div class="form-group">
+                <label for="expiry-date">Expiry Date</label>
+                <input type="date" id="expiry-date" name="expiryDate" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
+            </div>
+            <div class="form-group">
+                <label for="amount">Add Amount</label>
+                <input type="number" id="amount" name="amount" placeholder="Add Amount" required>
+            </div>
+            <div class="form-group">
+                <label for="payment-method">Payment Method</label>
+                <select id="payment-method" name="paymentMethod" required>
+                    <option value="" disabled selected>Select Payment Method</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="PayPal">PayPal</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                </select>
+            </div>
+            <button type="submit">Add</button>
+        </form>
+        <p>Your current balance: $<span id="current-balance">0.00</span></p>
+    </main>
+
+    <footer class="footer">
+        <p> © 2024 AI-Powered Solutions. All Rights Reserved. </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/balance')
+                .then(response => response.json())
+                .then(data => {
+                    const currentBalanceElement = document.getElementById('current-balance');
+                    currentBalanceElement.textContent = data.balance.toFixed(2);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

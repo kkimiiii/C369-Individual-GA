@@ -21,7 +21,7 @@
             <a href="/" class="active">Home</a>
             <a href="/solutions.html">Solutions</a>
             <a href="/pricing">Pricing</a>
-            <a href="/digital-wallet">Digital Wallet</a>
+            <a href="/digitalwallet.html">Digital Wallet</a>
             <button class="header-button" id="auth-button">Sign Up</button>
         </nav>
     </header>
@@ -31,17 +31,10 @@
             <div class="carousel-content">
                 <h2 id="carousel-title">Highly Accurate AI</h2>
                 <p id="carousel-text">It is highly accurate in identifying suspicious transactions and connected parties as it combats the increased sophistication in financial crime. This has helped them to catch more than 5,700 average monthly suspicious transactions and deploy the necessary resources swiftly to investigate potential money laundering attempts.</p>
-                <div class="carousel-buttons">
-                    <button class="carousel-button" id="prev-button">&#9664;</button>
-                    <button class="carousel-button" id="next-button">&#9654;</button>
-                </div>
-                <button id="start-button">Get Started</button>
-        </div>
     </main>
 
     <footer class="footer">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <p> © 2024 AI-Powered Solutions. All Rights Reserved. </p>
     </footer>
 
     <script>
@@ -49,26 +42,13 @@
             const urlParams = new URLSearchParams(window.location.search);
             const loggedIn = urlParams.get('loggedIn') === 'true';
             const signedUp = urlParams.get('signedUp') === 'true';
-            const loggedOut = urlParams.get('loggedOut') === 'true';
             const authButton = document.getElementById('auth-button');
 
-            if (loggedIn) {
-                alert('Logged in!');
+            if (loggedIn || signedUp) {
+                alert(loggedIn ? 'Logged in!' : 'Signed up successfully!');
                 authButton.textContent = 'Log Out';
                 authButton.onclick = function() {
                     window.location.href = '/logout';
-                };
-            } else if (signedUp) {
-                alert('Signed up successfully!');
-                authButton.textContent = 'Log Out';
-                authButton.onclick = function() {
-                    window.location.href = '/logout';
-                };
-            } else if (loggedOut) {
-                alert('Successfully logged out!');
-                authButton.textContent = 'Sign Up';
-                authButton.onclick = function() {
-                    window.location.href = '/signup';
                 };
             } else {
                 authButton.textContent = 'Sign Up';

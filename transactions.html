@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" x2="3" y1="12" y2="12"/>
+            </svg>
+            <span>Wardiere Inc.</span>
+        </div>
+        <nav id="navbar">
+            <a href="/" class="active">Home</a>
+            <a href="/solutions.html">Solutions</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/digitalwallet.html">Digital Wallet</a>
+            <button class="header-button" id="auth-button">Sign Up</button>
+        </nav>
+    </header>
+
+    <main class="transaction-container">
+        <h2>Transaction History</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Payment Method</th>
+                </tr>
+            </thead>
+            <tbody id="transaction-history">
+                <!-- Transactions will be populated here by scripts.js -->
+            </tbody>
+        </table>
+    </main>
+
+    <footer class="footer">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Example transactions data
+            const transactions = [
+                { date: '2024-08-01', amount: 100.00, paymentMethod: 'Credit Card' },
+                { date: '2024-08-02', amount: 50.00, paymentMethod: 'PayPal' }
+            ];
+
+            const transactionHistory = document.getElementById('transaction-history');
+            transactions.forEach(transaction => {
+                const row = document.createElement('tr');
+                const dateCell = document.createElement('td');
+                const amountCell = document.createElement('td');
+                const methodCell = document.createElement('td');
+
+                dateCell.textContent = transaction.date;
+                amountCell.textContent = `$${transaction.amount.toFixed(2)}`;
+                methodCell.textContent = transaction.paymentMethod;
+
+                row.appendChild(dateCell);
+                row.appendChild(amountCell);
+                row.appendChild(methodCell);
+                transactionHistory.appendChild(row);
+            });
+        });
+    </script>
+</body>
+</html>
