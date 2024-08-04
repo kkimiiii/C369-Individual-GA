@@ -1,19 +1,26 @@
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const loggedIn = urlParams.get('loggedIn') === 'true';
+    const signedUp = urlParams.get('signedUp') === 'true';
+    const loggedOut = urlParams.get('loggedOut') === 'true'; // Handle logout
+    const authButton = document.getElementById('auth-button');
 
-function showSlide(index) {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (index + slides.length) % slides.length;
-    slides[currentSlide].classList.add('active');
-}
-
-function nextSlide() {
-    showSlide(currentSlide + 1);
-}
-
-function prevSlide() {
-    showSlide(currentSlide - 1);
-}
-
-
-showSlide(currentSlide);
+    if (loggedIn || signedUp) {
+        alert(loggedIn ? 'Logged in!' : 'Signed up successfully!');
+        authButton.textContent = 'Log Out';
+        authButton.onclick = function() {
+            window.location.href = '/logout';
+        };
+    } else if (loggedOut) {
+        alert('Successfully logged out!');
+        authButton.textContent = 'Sign Up';
+        authButton.onclick = function() {
+            window.location.href = '/signup';
+        };
+    } else {
+        authButton.textContent = 'Sign Up';
+        authButton.onclick = function() {
+            window.location.href = '/signup';
+        };
+    }
+});
