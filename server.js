@@ -1,3 +1,11 @@
+//I declare that this code was written by me.
+//I will not coppy or allow others to copy my work.
+//I understand that copying code is considered as plagirsm.
+
+//Student Name: Hanan Hakimi
+//Student ID: 23015073
+//class: C369-3D-W66N-A-GA
+//Date/Time last modified: 2021/08/20 11:00
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
