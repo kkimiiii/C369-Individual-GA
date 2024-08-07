@@ -1,6 +1,6 @@
 //I declare that this code was written by me.
-//I will not coppy or allow others to copy my work.
-//I understand that copying code is considered as plagirsm.
+//I will not copy or allow others to copy my work.
+//I understand that copying code is considered as plagiarism.
 
 //Student Name: Hanan Hakimi
 //Student ID: 23015073
@@ -76,6 +76,15 @@ app.get('/confirmation', (req, res) => {
     res.sendFile(path.join(__dirname, 'confirmation.html'));
 });
 
+// Serve transaction history page
+app.get('/transactions', (req, res) => {
+    if (req.session.loggedIn) {
+        res.sendFile(path.join(__dirname, 'transactions.html'));
+    } else {
+        res.redirect('/login');
+    }
+});
+
 // Handle login
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -128,9 +137,14 @@ app.post('/buy', (req, res) => {
         const user = req.session.user;
         if (user.balance >= amount) {
             user.balance -= amount;
-            res.json({ success: true });
+            transactions.push({
+                date: new Date().toISOString().split('T')[0],
+                amount: -parseFloat(amount),
+                paymentMethod: 'Purchase'
+            });
+            res.redirect('/confirmation');
         } else {
-            res.json({ success: false });
+            res.send("<script>alert('Insufficient balance!'); window.location.href = '/pricing';</script>");
         }
     } else {
         res.status(401).json({ success: false, message: 'Not logged in' });
@@ -151,6 +165,15 @@ app.get('/logout', (req, res) => {
 // Serve logout page
 app.get('/logout.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'logout.html'));
+});
+
+// Get transactions for history
+app.get('/get-transactions', (req, res) => {
+    if (req.session.loggedIn) {
+        res.json(transactions);
+    } else {
+        res.status(401).json({ error: 'Not logged in' });
+    }
 });
 
 // Start the server
